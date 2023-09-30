@@ -17,10 +17,16 @@ public class ep1{
         List <String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
 
         while(act == 0){
+            //Conta o nº de comandos COM
             if(lines.get(count_ln).equals("COM")){
                 count_COM++;
+            //Interrompe o while na última linha
             } else if(lines.get(count_ln).equals("SAIDA")){
                 act = 1;
+            }
+            //Identifica uma linha que se inicia com 'X'
+            if(Character.compare(lines.get(count_ln).charAt(0), 'X') == 0){
+                System.out.println(lines.get(count_ln));
             }
             count_ln++;
         }
