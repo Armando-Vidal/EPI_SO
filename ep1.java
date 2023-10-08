@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class ep1{
+public class ep1{ //leitura do programa
 
     private static int count_COM = 0;
     private static int count_ln = 0;
