@@ -9,39 +9,30 @@ import java.util.ArrayList;
 public class bcp
 {
     private int contadorPrograma, nomeArquivo, tempodeEspera;
-    private int[] registradores = new int[2];
-	private String nomePrograma, estadoProcesso;
-    private List<String> textodoPrograma = new ArrayList<>(); 
+    private int X, Y;
+	private String estadoProcesso;
+    int nomePrograma;
+    List<String> comandos = new ArrayList<>(); 
     
     // Tabela de processos;
     // Lista de processos prontos;
     // Lista de processos bloqueados;
 
-	public bcp(List<String> textodoPrograma, int nomeArquivo)
+	public bcp(List<String> comandos, String nome)
     {
-
-		this.textodoPrograma = textodoPrograma;
-		this.nomePrograma = textodoPrograma.remove(0);			
-		this.estadoProcesso = "Pronto.";
-		this.nomeArquivo = nomeArquivo;
-
+		this.comandos = comandos;
+        this.nomePrograma = Integer.parseInt(nome.replace(".txt", ""));
+		this.estadoProcesso = "Pronto";
 	}
 
-    public void imprimetexto()
-    {
-        for(String x : textodoPrograma)
-        {
-            System.out.println(x);
-        }
-    }
-
+    /*
     //sobrescrevendo a lista de processos
     public String toString()
     {
 		return nomePrograma + " - PC: [" + contadorPrograma + "/" + textodoPrograma.size() + "] - Tempo Espera: " + tempodeEspera + " - Estado: " + estadoProcesso + "\n";
 	}
     
-    //setando os registradores    
+    //setando os registradores
     public int getRegistradorX()
     {
 		return this.registradores[0];
@@ -110,5 +101,6 @@ public class bcp
     {
 		return nomeArquivo;
 	}
+     */
 
 }
