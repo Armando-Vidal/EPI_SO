@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class bcp
 {
-    private int contadorPrograma, nomeArquivo, tempodeEspera;
+    private int contadorPrograma, nomeTeste, tempodeEspera;
     private int X, Y;
-	private String estadoProcesso;
+	String estadoProcesso;
     int nomePrograma;
     List<String> comandos = new ArrayList<>(); 
     
