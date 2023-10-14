@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class bcp
 {
-    int contadorPrograma, tempodeEspera;
+    int contadorQuantum, contadorPrograma, tempodeEspera;
     int X, Y;
     int count_ln = 1;
     boolean finalizado = false;
@@ -24,6 +24,7 @@ public class bcp
         //while(count_ln < 21){
             if(comandos.get(count_ln).equals("COM")){
                 contadorPrograma++;
+                contadorQuantum++;
                 System.out.println(nomeTeste + " COM");
             }
             //Identifica uma linha que se inicia com 'X' ou 'Y'
@@ -31,16 +32,19 @@ public class bcp
                 System.out.println(nomeTeste + " X");
                 X = Integer.parseInt(comandos.get(count_ln).replaceAll("[^0-9]", ""));
                 contadorPrograma++;
+                contadorQuantum++;
             }
             else if(Character.compare(comandos.get(count_ln).charAt(0), 'Y') == 0){
                 System.out.println(nomeTeste + " Y");
                 Y = Integer.parseInt(comandos.get(count_ln).replaceAll("[^0-9]", ""));
                 contadorPrograma++;
+                contadorQuantum++;
             }
             //Identifica entradas e saídas
             else if(comandos.get(count_ln).equals("E/S")){
                 System.out.println(nomeTeste + " E/S");
                 contadorPrograma++;
+                contadorQuantum++;
                 estadoProcesso = "Bloqueado";
                 //break;
             }
@@ -49,9 +53,10 @@ public class bcp
                 System.out.println(nomeTeste + " SAIDA");
                 finalizado = true;
                 contadorPrograma++;
+                contadorQuantum++;
                 //break;
             }
-            System.out.println("Contador programa " + nomeTeste + ": " + contadorPrograma);
+            System.out.println("Contador programa/Quatum " + nomeTeste + ": " + contadorPrograma + "/" + contadorQuantum);
             count_ln++;
         //}
     }

@@ -40,9 +40,10 @@ public class escalonador { //cordena o processo de escalonamento
         //while que esvazia tabela de bcps
         while(0 < tp.tabela.size()){
             prontos.get(i).fazComando();
-            if(prontos.get(i).contadorPrograma == quantum){
+            if(prontos.get(i).contadorQuantum == quantum && prontos.get(i).estadoProcesso != "Bloqueado" && !prontos.get(i).finalizado){
                 System.out.println("Limite de quantum");
                 System.out.println("Prontos antes: " + prontos);
+                prontos.get(i).contadorQuantum = 0;
                 prontos.add(prontos.size(), prontos.get(i));
                 prontos.remove(0);
                 System.out.println("Prontos depois de add: " + prontos);
@@ -55,20 +56,20 @@ public class escalonador { //cordena o processo de escalonamento
                 bloquados.add(bloquados.size(), prontos.get(0));
                 tp.removeBCP(i);
                 prontos.remove(i);
-                System.out.println(prontos);
                 //i++;
                 System.out.println("Bloqueados depois: " + bloquados);
+                System.out.println("Prontos: " + prontos);
 
                 //log de interrupção
                 System.out.println(bloquados.get(bloquados.size() - 1).nomeTeste + " interrompido");
                 //System.out.println("Primeiro elemento de prontos: " + prontos.get(0).nomeTeste);
             } else if(prontos.get(i).finalizado){
                 tp.removeBCP(i);
+                System.out.println(prontos.get(i).nomeTeste + " finalizado");
                 prontos.remove(i);
                 //i++;
 
                 //log de finalização
-                System.out.println(prontos.get(i).nomeTeste + " finalizado");
                 //System.out.println("Primeiro elemento de prontos: " + prontos.get(0).nomeTeste);
             }
         }
@@ -81,7 +82,6 @@ public class escalonador { //cordena o processo de escalonamento
         esc.rodaProgramas();
 
         System.out.println(esc.prontos);
-        System.out.println(esc.quantum);
         System.out.println(esc.bloquados);
     }
 }
