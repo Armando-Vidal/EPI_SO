@@ -1,8 +1,3 @@
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,5 +7,11 @@ public class tabela_processos {
 
     public void addBCP(bcp bloco){
         this.tabela.add(bloco);
+    }
+    public void removeBCP(int index){
+        this.tabela.remove(index);
+    }
+    public bcp getBCP(int index){
+        return tabela.get(index);
     }
 }

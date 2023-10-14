@@ -1,29 +1,60 @@
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 
 public class bcp
 {
-    private int contadorPrograma, nomeTeste, tempodeEspera;
-    private int X, Y;
+    int contadorPrograma, tempodeEspera;
+    int X, Y;
+    int count_ln = 1;
+    boolean finalizado = false;
+    String nomeTeste;
 	String estadoProcesso;
     int nomePrograma;
+    int quantum;
     List<String> comandos = new ArrayList<>(); 
-    
-    // Tabela de processos;
-    // Lista de processos prontos;
-    // Lista de processos bloqueados;
 
-	public bcp(List<String> comandos, String nome)
-    {
+	public bcp(List<String> comandos, String nome){
 		this.comandos = comandos;
         this.nomePrograma = Integer.parseInt(nome.replace(".txt", ""));
 		this.estadoProcesso = "Pronto";
+        this.nomeTeste = comandos.get(0);
 	}
+
+    public void fazComando(){
+        //while(count_ln < 21){
+            if(comandos.get(count_ln).equals("COM")){
+                contadorPrograma++;
+                System.out.println(nomeTeste + " COM");
+            }
+            //Identifica uma linha que se inicia com 'X' ou 'Y'
+            else if(Character.compare(comandos.get(count_ln).charAt(0), 'X') == 0){
+                System.out.println(nomeTeste + " X");
+                X = Integer.parseInt(comandos.get(count_ln).replaceAll("[^0-9]", ""));
+                contadorPrograma++;
+            }
+            else if(Character.compare(comandos.get(count_ln).charAt(0), 'Y') == 0){
+                System.out.println(nomeTeste + " Y");
+                Y = Integer.parseInt(comandos.get(count_ln).replaceAll("[^0-9]", ""));
+                contadorPrograma++;
+            }
+            //Identifica entradas e saídas
+            else if(comandos.get(count_ln).equals("E/S")){
+                System.out.println(nomeTeste + " E/S");
+                contadorPrograma++;
+                estadoProcesso = "Bloqueado";
+                //break;
+            }
+            //Identifica SAIDA na última linha
+            else if(comandos.get(count_ln).equals("SAIDA")){
+                System.out.println(nomeTeste + " SAIDA");
+                finalizado = true;
+                contadorPrograma++;
+                //break;
+            }
+            System.out.println("Contador programa " + nomeTeste + ": " + contadorPrograma);
+            count_ln++;
+        //}
+    }
 
     /*
     //sobrescrevendo a lista de processos

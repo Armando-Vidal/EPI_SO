@@ -8,11 +8,11 @@ import java.util.*;
 
 //leitura do programa
 public class le_diretorio{
-    static List<bcp> blocos = new ArrayList<>(); //lista com todos os blocos de comando de processos
-    static List<String> arq_quantum; //variável auxiliar para tirar o valor do quantum do arquivo
-    static int quantum; //valor do quantum em inteiro que será usado
+    List<bcp> blocos = new ArrayList<>(); //lista com todos os blocos de comando de processos
+    List<String> arq_quantum; //variável auxiliar para tirar o valor do quantum do arquivo
+    int quantum; //valor do quantum em inteiro que será usado
 
-    public static List<bcp> leDiretorio() {
+    public List<bcp> leDiretorio() {
         File dir_programas = new File("programas"); //diretório que será usado
 
         //laço para separar os arquivos de comando e o quantum
@@ -33,7 +33,7 @@ public class le_diretorio{
                 System.exit(1);
             }
         }
-
+        
         return blocos; //retorna a lista de bcps
     }  
 
