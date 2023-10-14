@@ -34,46 +34,55 @@ public class escalonador { //cordena o processo de escalonamento
         }
     }
 
-    public void rodaProgramas(){
+    public void diminuitempodeEspera(){
         int i = 0;
-        System.out.println("Primeiro elemento de prontos: " + prontos.get(0).nomeTeste);
-        //while que esvazia tabela de bcps
-        while(0 < tp.tabela.size()){
-            prontos.get(i).fazComando();
-            if(prontos.get(i).contadorQuantum == quantum && prontos.get(i).estadoProcesso != "Bloqueado" && !prontos.get(i).finalizado){
-                System.out.println("Limite de quantum");
-                System.out.println("Prontos antes: " + prontos);
-                prontos.get(i).contadorQuantum = 0;
-                prontos.add(prontos.size(), prontos.get(i));
-                prontos.remove(0);
-                System.out.println("Prontos depois de add: " + prontos);
-                //System.out.println("Primeiro elemento de prontos: " + prontos.get(0).nomeTeste);
-                //i++;
-            }
-            if(prontos.get(i).estadoProcesso == "Bloqueado"){ //E/S aumenta o contadorPrograma? Bloqueado porém pronto?
-                System.out.println("Bloqueio");
-                System.out.println("Bloquados antes: " + bloquados);
-                bloquados.add(bloquados.size(), prontos.get(0));
-                tp.removeBCP(i);
-                prontos.remove(i);
-                //i++;
-                System.out.println("Bloqueados depois: " + bloquados);
-                System.out.println("Prontos: " + prontos);
-
-                //log de interrupção
-                System.out.println(bloquados.get(bloquados.size() - 1).nomeTeste + " interrompido");
-                //System.out.println("Primeiro elemento de prontos: " + prontos.get(0).nomeTeste);
-            } else if(prontos.get(i).finalizado){
-                tp.removeBCP(i);
-                System.out.println(prontos.get(i).nomeTeste + " finalizado");
-                prontos.remove(i);
-                //i++;
-
-                //log de finalização
-                //System.out.println("Primeiro elemento de prontos: " + prontos.get(0).nomeTeste);
+        while(i < bloquados.size()){
+            //System.out.println("Tempo de espera de " + bloquados.get(i) + ": " + bloquados.get(i).tempodeEspera);
+            bloquados.get(i).tempodeEspera--;
+            if(bloquados.get(i).tempodeEspera == 0){
+                prontos.add(prontos.size(), bloquados.get(i));
+                tp.addBCP(bloquados.get(i));
+                bloquados.remove(i);
+                prontos.get(prontos.size() - 1).tempodeEspera = 2;
+                prontos.get(prontos.size() - 1).estadoProcesso = "Pronto";
+            } else{
+                i++;
             }
         }
-        System.out.println("Saiu do while");
+    }
+
+    public void rodaProgramas(){
+        //while que esvazia tabela de bcps
+        while(0 < tp.tabela.size()){
+            prontos.get(0).fazComando();
+            //caso de quantum 3 -> passa arquivo para o final da lista de prontos
+            if(prontos.get(0).contadorQuantum == quantum && prontos.get(0).estadoProcesso != "Bloqueado" && !prontos.get(0).finalizado){
+                prontos.get(0).contadorQuantum = 0; //reseta quantum para quando esse arquivo rodar de novo
+                prontos.add(prontos.size(), prontos.get(0));
+                prontos.remove(0);
+
+                diminuitempodeEspera();
+            //caso de E/S -> (por enquanto) remove da lista de prontos e tabela e coloca na lista de bloqueados (mas não sai de lá nunca)
+            } else if(prontos.get(0).estadoProcesso == "Bloqueado"){
+                diminuitempodeEspera();
+                bloquados.add(bloquados.size(), prontos.get(0));
+                tp.removeBCP(0);
+                prontos.remove(0);
+                bloquados.get(bloquados.size() - 1).contadorQuantum = 0;
+
+                //log de interrupção
+            //caso de SAIDA -> remove o arquivo da tabela e de prontos
+            } else if(prontos.get(0).finalizado){
+                tp.removeBCP(0);
+                //log de finalização
+
+                prontos.remove(0);
+                diminuitempodeEspera();
+            }
+            System.out.println("Prontos: " + prontos);
+            System.out.println("Tabela: " + tp.tabela);
+            System.out.println("Bloqueados: " + bloquados);
+        }
     }
 
     //main de testes

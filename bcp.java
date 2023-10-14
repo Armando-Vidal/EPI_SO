@@ -17,48 +17,45 @@ public class bcp
 		this.comandos = comandos;
         this.nomePrograma = Integer.parseInt(nome.replace(".txt", ""));
 		this.estadoProcesso = "Pronto";
+        this.tempodeEspera = 2;
         this.nomeTeste = comandos.get(0);
 	}
 
     public void fazComando(){
-        //while(count_ln < 21){
-            if(comandos.get(count_ln).equals("COM")){
-                contadorPrograma++;
-                contadorQuantum++;
-                System.out.println(nomeTeste + " COM");
-            }
-            //Identifica uma linha que se inicia com 'X' ou 'Y'
-            else if(Character.compare(comandos.get(count_ln).charAt(0), 'X') == 0){
-                System.out.println(nomeTeste + " X");
-                X = Integer.parseInt(comandos.get(count_ln).replaceAll("[^0-9]", ""));
-                contadorPrograma++;
-                contadorQuantum++;
-            }
-            else if(Character.compare(comandos.get(count_ln).charAt(0), 'Y') == 0){
-                System.out.println(nomeTeste + " Y");
-                Y = Integer.parseInt(comandos.get(count_ln).replaceAll("[^0-9]", ""));
-                contadorPrograma++;
-                contadorQuantum++;
-            }
-            //Identifica entradas e saídas
-            else if(comandos.get(count_ln).equals("E/S")){
-                System.out.println(nomeTeste + " E/S");
-                contadorPrograma++;
-                contadorQuantum++;
-                estadoProcesso = "Bloqueado";
-                //break;
-            }
-            //Identifica SAIDA na última linha
-            else if(comandos.get(count_ln).equals("SAIDA")){
-                System.out.println(nomeTeste + " SAIDA");
-                finalizado = true;
-                contadorPrograma++;
-                contadorQuantum++;
-                //break;
-            }
-            System.out.println("Contador programa/Quatum " + nomeTeste + ": " + contadorPrograma + "/" + contadorQuantum);
-            count_ln++;
-        //}
+        if(comandos.get(count_ln).equals("COM")){
+            contadorPrograma++;
+            contadorQuantum++;
+            System.out.println(nomeTeste + " COM");
+        }
+        //Identifica uma linha que se inicia com 'X' ou 'Y'
+        else if(Character.compare(comandos.get(count_ln).charAt(0), 'X') == 0){
+            System.out.println(nomeTeste + " X");
+            X = Integer.parseInt(comandos.get(count_ln).replaceAll("[^0-9]", ""));
+            contadorPrograma++;
+            contadorQuantum++;
+        }
+        else if(Character.compare(comandos.get(count_ln).charAt(0), 'Y') == 0){
+            System.out.println(nomeTeste + " Y");
+            Y = Integer.parseInt(comandos.get(count_ln).replaceAll("[^0-9]", ""));
+            contadorPrograma++;
+            contadorQuantum++;
+        }
+        //Identifica E/S
+        else if(comandos.get(count_ln).equals("E/S")){
+            System.out.println(nomeTeste + " E/S");
+            contadorPrograma++;
+            contadorQuantum++;
+            estadoProcesso = "Bloqueado";
+        }
+        //Identifica SAIDA na última linha
+        else if(comandos.get(count_ln).equals("SAIDA")){
+            System.out.println(nomeTeste + " SAIDA");
+            finalizado = true;
+            contadorPrograma++;
+            contadorQuantum++;
+        }
+        System.out.println("Contador programa/Quatum " + nomeTeste + ": " + contadorPrograma + "/" + contadorQuantum);
+        count_ln++;
     }
 
     /*
