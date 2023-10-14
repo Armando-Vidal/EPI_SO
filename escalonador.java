@@ -52,7 +52,7 @@ public class escalonador { //cordena o processo de escalonamento
             if(prontos.get(i).estadoProcesso == "Bloqueado"){ //E/S aumenta o contadorPrograma? Bloqueado porém pronto?
                 System.out.println("Bloqueio");
                 System.out.println("Bloquados antes: " + bloquados);
-                bloquados.add(bloquados.size(), tp.getBCP(i));
+                bloquados.add(bloquados.size(), prontos.get(0));
                 tp.removeBCP(i);
                 prontos.remove(i);
                 System.out.println(prontos);
