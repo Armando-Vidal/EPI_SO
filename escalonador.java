@@ -3,7 +3,7 @@ import java.util.List;
 
 public class escalonador { //cordena o processo de escalonamento
     int quantum;
-	private String log;
+	//private String log;
 
     private List<bcp> prontos = new ArrayList<>(); //lista de bcps prontos
     private List<bcp> bloquados = new ArrayList<>(); //lista de bcps bloqueados
@@ -36,34 +36,43 @@ public class escalonador { //cordena o processo de escalonamento
 
     public void rodaProgramas(){
         int i = 0;
+        System.out.println("Primeiro elemento de prontos: " + prontos.get(0).nomeTeste);
+        //while que esvazia tabela de bcps
         while(0 < tp.tabela.size()){
-            tp.getBCP(i).fazComando();
-            if(tp.getBCP(i).contadorPrograma == quantum){
+            prontos.get(i).fazComando();
+            if(prontos.get(i).contadorPrograma == quantum){
                 System.out.println("Limite de quantum");
                 System.out.println("Prontos antes: " + prontos);
+                prontos.add(prontos.size(), prontos.get(i));
                 prontos.remove(0);
-                prontos.add(prontos.size(), tp.getBCP(i));
                 System.out.println("Prontos depois de add: " + prontos);
-                i++;
+                //System.out.println("Primeiro elemento de prontos: " + prontos.get(0).nomeTeste);
+                //i++;
             }
-            if(tp.getBCP(i).estadoProcesso == "Bloqueado"){
+            if(prontos.get(i).estadoProcesso == "Bloqueado"){ //E/S aumenta o contadorPrograma? Bloqueado porém pronto?
                 System.out.println("Bloqueio");
                 System.out.println("Bloquados antes: " + bloquados);
                 bloquados.add(bloquados.size(), tp.getBCP(i));
                 tp.removeBCP(i);
-                prontos.remove(0);
+                prontos.remove(i);
+                System.out.println(prontos);
+                //i++;
                 System.out.println("Bloqueados depois: " + bloquados);
 
                 //log de interrupção
                 System.out.println(bloquados.get(bloquados.size() - 1).nomeTeste + " interrompido");
-            } else if(tp.getBCP(i).finalizado){
+                //System.out.println("Primeiro elemento de prontos: " + prontos.get(0).nomeTeste);
+            } else if(prontos.get(i).finalizado){
                 tp.removeBCP(i);
+                prontos.remove(i);
+                //i++;
 
                 //log de finalização
-                System.out.println(tp.getBCP(i).nomeTeste + " finalizado");
+                System.out.println(prontos.get(i).nomeTeste + " finalizado");
+                //System.out.println("Primeiro elemento de prontos: " + prontos.get(0).nomeTeste);
             }
-            System.out.println("Primeiro elemento de prontos: " + prontos.get(0).nomeTeste);
         }
+        System.out.println("Saiu do while");
     }
 
     //main de testes
@@ -73,6 +82,6 @@ public class escalonador { //cordena o processo de escalonamento
 
         System.out.println(esc.prontos);
         System.out.println(esc.quantum);
-        System.out.println(esc.tp.tabela);
+        System.out.println(esc.bloquados);
     }
 }
