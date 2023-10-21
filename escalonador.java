@@ -134,7 +134,7 @@ public class escalonador { //cordena o processo de escalonamento
 
             //caso de SAIDA -> remove o arquivo da tabela e de prontos
             } else if(prontos.get(0).finalizado){
-                tp.removeBCP(0);
+                tp.removeBCP(prontos.get(0));
                 instucoes_quantum.add(instucoes_quantum.size(), prontos.get(0).contadorQuantum);
 
                 diminuitempodeEspera();
@@ -188,14 +188,5 @@ public class escalonador { //cordena o processo de escalonamento
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-    }
-
-    //main de testes
-    public static void main(String args[]){
-        escalonador esc = new escalonador();
-        esc.rodaProgramas();
-
-        //System.out.println(esc.prontos);
-        //System.out.println(esc.bloqueados);
     }
 }

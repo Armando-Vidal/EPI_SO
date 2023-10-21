@@ -52,10 +52,4 @@ public class le_diretorio{
 
         return lines; //retorna uma lista de strings onde cada item é uma linha do arquivo (ou um comando)
     }
-
-    //main para testes
-    //public static void main(String args[]){
-    //    le_diretorio ler = new le_diretorio();
-    //    ler.leDiretorio();
-    //}
 }
