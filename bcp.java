@@ -3,25 +3,27 @@ import java.util.ArrayList;
 
 public class bcp
 {
-    int contadorQuantum, contadorPrograma, tempodeEspera;
+    int contadorQuantum, contadorPrograma, tempodeEspera, interrupcoes;
     int X, Y;
     int count_ln = 1;
     boolean finalizado = false;
     String nomeTeste;
 	String estadoProcesso;
     int nomePrograma;
-    int quantum;
-    List<String> comandos = new ArrayList<>(); 
+    List<String> comandos = new ArrayList<>();
 
+    //construtor
 	public bcp(List<String> comandos, String nome){
-		this.comandos = comandos;
-        this.nomePrograma = Integer.parseInt(nome.replace(".txt", ""));
-		this.estadoProcesso = "Pronto";
-        this.tempodeEspera = 2;
-        this.nomeTeste = comandos.get(0);
+		this.comandos = comandos; //lista de comandos do arquivo
+        this.nomePrograma = Integer.parseInt(nome.replace(".txt", "")); //nome do arquivo (01, 02, etc.)
+		this.estadoProcesso = "Pronto"; //estado variável entre "Pronto" e "Bloqueado"
+        this.tempodeEspera = 2; //Tempo de espera para bloqueados
+        this.nomeTeste = comandos.get(0); //Nome do Teste ("Teste-1", "Teste-2", etc)
 	}
 
+    //função para realizar um comando
     public void fazComando(){
+        //Identifica uma linha que de comando COM
         if(comandos.get(count_ln).equals("COM")){
             contadorPrograma++;
             contadorQuantum++;
