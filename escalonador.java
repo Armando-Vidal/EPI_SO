@@ -78,6 +78,12 @@ public class escalonador { //cordena o processo de escalonamento
     }
 
     public void rodaProgramas(){
+        try {
+            log.write("Executando " + prontos.get(0).nomeTeste + "\n");;
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
         //while que esvazia tabela de bcps
         while(0 < tp.tabela.size()){
             prontos.get(0).fazComando();
@@ -151,6 +157,7 @@ public class escalonador { //cordena o processo de escalonamento
             //caso de SAIDA -> remove o arquivo da tabela e de prontos
             } else if(prontos.get(0).finalizado){
                 tp.removeBCP(prontos.get(0)); //remove bcp da tabela de processos
+                prontos.get(0).interrupcoes++;
                 instucoes_quantum.add(instucoes_quantum.size(), prontos.get(0).contadorQuantum); //add último quantum do bcp finalizado
 
                 diminuitempodeEspera();
